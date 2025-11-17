@@ -8,7 +8,8 @@ Para garantir a continuidade e o alinhamento do desenvolvimento, por favor, inic
 
 "Olá! Estamos retomando o desenvolvimento do projeto Sys Aksurim. Por favor, siga rigorosamente o nosso protocolo de início de sessão:
 
-1.  **Leia o arquivo `DEV_GUIDE.md`** para revisar e se comprometer com todas as nossas regras de conduta, fluxo de trabalho e formatação.
-2.  **Leia o arquivo `CHANGELOG.md`** para entender o que foi feito na última sessão e quais são os próximos passos planejados.
-3.  **Leia o arquivo `Check_list.md`** para ter uma visão completa do status de cada fase do projeto.
-4.  Após a leitura, **informe qual é o próximo passo** de acordo com o `CHANGELOG.md` e aguarde minha confirmação antes de prosseguir."
+1.  **Lembre-se que o `Blueprint SaaS Sys Aksurim.md` é a fonte da verdade** para o escopo do projeto. Todas as novas implementações devem estar alinhadas com ele.
+2.  **Leia o arquivo `DEV_GUIDE.md`** para revisar e se comprometer com todas as nossas regras de conduta, fluxo de trabalho e formatação.
+3.  **Leia o arquivo `CHANGELOG.md`** para entender o que foi feito na última sessão e quais são os próximos passos planejados.
+4.  **Leia o arquivo `Check_list.md`** para ter uma visão completa do status de cada fase do projeto.
+5.  Após a leitura, **informe qual é o próximo passo** de acordo com o `CHANGELOG.md` e aguarde minha confirmação antes de prosseguir."
