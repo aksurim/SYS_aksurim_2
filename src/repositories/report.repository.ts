@@ -18,15 +18,15 @@ export interface ReportFromDB extends RowDataPacket {
   type: string;
 }
 
+export interface ReportFilterFromDB extends RowDataPacket {
+  filter_name: string;
+  filter_value: string;
+}
+
 export interface ReportData {
   name: string;
   type: string;
-  filters: ReportFilterData[];
-}
-
-export interface ReportFilterData {
-  filter_key: string;
-  filter_value: string;
+  filters: { filter_key: string; filter_value: string }[];
 }
 
 class ReportRepository {
@@ -43,14 +43,16 @@ class ReportRepository {
       );
       const reportId = reportResult.insertId;
 
-      const reportFiltersQueries = filters.map(filter => {
-        return connection.execute(
-          'INSERT INTO report_filters (tenant_id, report_id, filter_key, filter_value) VALUES (?, ?, ?, ?)',
-          [tenant_id, reportId, filter.filter_key, filter.filter_value]
-        );
-      });
-
-      await Promise.all(reportFiltersQueries);
+      if (filters && filters.length > 0) {
+        const reportFiltersQueries = filters.map(filter => {
+          return connection.execute(
+            'INSERT INTO report_filters (tenant_id, report_id, filter_name, filter_value) VALUES (?, ?, ?, ?)',
+            [tenant_id, reportId, filter.filter_key, filter.filter_value]
+          );
+        });
+  
+        await Promise.all(reportFiltersQueries);
+      }
 
       await connection.commit();
       connection.release();
@@ -70,12 +72,35 @@ class ReportRepository {
     return rows;
   }
 
-  async findById(tenant_id: number, id: number): Promise<ReportFromDB | null> {
-    const [rows] = await pool.execute<ReportFromDB[]>(
+  async findById(tenant_id: number, id: number): Promise<any | null> {
+    // Busca os dados principais do relatório
+    const [reportRows] = await pool.execute<ReportFromDB[]>(
       'SELECT * FROM reports WHERE id = ? AND tenant_id = ?',
       [id, tenant_id]
     );
-    return rows[0] || null;
+
+    if (!reportRows[0]) {
+      return null;
+    }
+
+    const report = reportRows[0];
+
+    // Busca os filtros associados
+    const [filterRows] = await pool.execute<ReportFilterFromDB[]>(
+      'SELECT filter_name, filter_value FROM report_filters WHERE report_id = ? AND tenant_id = ?',
+      [id, tenant_id]
+    );
+
+    // Mapeia os nomes do banco de dados (`filter_name`) para o que o frontend espera (`filter_key`)
+    const filters = filterRows.map(filter => ({
+      filter_key: filter.filter_name,
+      filter_value: filter.filter_value,
+    }));
+
+    return {
+      ...report,
+      filters: filters,
+    };
   }
 }
 

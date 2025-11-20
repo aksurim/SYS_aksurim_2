@@ -1,0 +1,40 @@
+# Arquivo de configuração do Git para ignorar arquivos e pastas desnecessários.
+
+# Dependências
+# Ignora as pastas de módulos do Node.js tanto na raiz (backend) quanto no frontend.
+node_modules/
+frontend/node_modules/
+
+# Arquivos de Ambiente
+# Ignora o arquivo .env que contém segredos e variáveis de ambiente locais.
+# O arquivo .env.example, que serve como um modelo, DEVE ser versionado.
+.env
+.env.local
+.env.*.local
+
+# Logs
+# Ignora arquivos de log que podem conter informações sensíveis.
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Arquivos de Build e Produção
+# Ignora as pastas de saída de build do backend e do frontend (Vite).
+dist/
+frontend/dist/
+.DS_Store
+
+# Arquivos de IDE
+# Ignora configurações específicas de IDEs para evitar conflitos entre desenvolvedores.
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Arquivos de Teste (se aplicável)
+coverage/
+.nyc_output/

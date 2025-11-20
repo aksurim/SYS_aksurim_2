@@ -18,7 +18,14 @@ class SettingsService {
   async createOrUpdate(tenant_id: number, settingsData: SettingsData): Promise<SettingsFromDB | null> {
     const existingSettings = await SettingsRepository.findByTenant(tenant_id);
     if (existingSettings) {
-      await SettingsRepository.update(tenant_id, settingsData);
+      // Regra de Negócio: Apenas campos permitidos podem ser atualizados.
+      const allowedUpdateData: Partial<SettingsData> = {
+        company_name: settingsData.company_name,
+        logo_url: settingsData.logo_url,
+        instagram: settingsData.instagram,
+        contact: settingsData.contact,
+      };
+      await SettingsRepository.update(tenant_id, allowedUpdateData);
     } else {
       await SettingsRepository.create(tenant_id, settingsData);
     }

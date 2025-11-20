@@ -46,74 +46,73 @@ Este documento rastreia o progresso do desenvolvimento do projeto, garantindo qu
     -   [x] BD: Criar script da tabela `customers`.
     -   [x] Backend: Implementar CRUD completo para clientes.
     -   [x] Frontend: Criar e testar a tela de listagem e o formulário de clientes.
--   [ ] **Módulo de Fornecedores (`suppliers`):**
+-   [x] **Módulo de Fornecedores (`suppliers`):**
     -   [x] BD: Criar script da tabela `suppliers`.
     -   [x] Backend: Implementar CRUD completo para fornecedores.
-    -   [ ] Frontend: Criar e testar a tela de listagem e o formulário de fornecedores. *(Código gerado, mas não testado)*
-
+    -   [x] Frontend: Criar e testar a tela de listagem e o formulário de fornecedores.
 ---
 
 ## Fase 4: Módulo de Produtos, Estoque e Inteligência de Custo
 
--   [ ] **Módulo de Produtos (`products`):**
+-   [x] **Módulo de Produtos (`products`):**
     -   [x] BD: Criar script da tabela `products`.
     -   [x] BD: Criar script da tabela `recipes`.
     -   [x] BD: Criar script da tabela `product_lr_details`.
     -   [x] Backend: Implementar CRUD completo para produtos.
-    -   [ ] Frontend: Criar e testar a tela de listagem e o formulário de produtos. *(Código gerado, mas não testado)*
-
+    -   [x] Frontend: Criar e testar a tela de listagem e o formulário de produtos.
 ---
 
 ## Fase 5: Módulo de Vendas (PDV) e Ordem de Serviço (OS)
 
--   [ ] **Módulo de Vendas (`sales`):**
+-   [x] **Módulo de Vendas (`sales`):**
     -   [x] BD: Criar script da tabela `sales`.
     -   [x] BD: Criar script da tabela `sale_items`.
     -   [x] Backend: Implementar CRUD para vendas.
-    -   [ ] Frontend: Criar e testar a tela de PDV. *(Código gerado, mas não testado)*
-
+    -   [x] Frontend: Criar e testar a tela de PDV.
 ---
 
 ## Fase 6: Módulo Financeiro e Relatórios Gerenciais
 
--   [ ] **Módulo Financeiro (`transactions`):**
+-   [x] **Módulo Financeiro (`transactions`):**
     -   [x] BD: Criar script da tabela `accounts`.
     -   [x] BD: Criar script da tabela `categories`.
     -   [x] BD: Criar script da tabela `transactions`.
     -   [x] Backend: Implementar CRUD para contas.
     -   [x] Backend: Implementar CRUD para categorias.
     -   [x] Backend: Implementar CRUD para transações.
-    -   [ ] Frontend: Criar e testar a tela de contas. *(Código gerado, mas não testado)*
-    -   [ ] Frontend: Criar e testar a tela de categorias. *(Código gerado, mas não testado)*
-    -   [ ] Frontend: Criar e testar a tela de transações. *(Código gerado, mas não testado)*
+    -   [x] Frontend: Criar e testar a tela de contas.
+    -   [x] Frontend: Criar e testar a tela de categorias.
+    -   [x] Frontend: Criar e testar a tela de transações.
 
 ---
 
 ## Fase 7: Módulo de Configurações e Cadastros Mestres
 
--   [ ] **Módulo de Configurações (`settings`):**
+-   [x] **Módulo de Configurações (`settings`):**
     -   [x] BD: Criar script da tabela `settings`.
     -   [x] Backend: Implementar CRUD para configurações.
-    -   [ ] Frontend: Criar e testar a tela de configurações. *(Código gerado, mas não testado)*
+    -   [x] Frontend: Criar e testar a tela de configurações.
 
 ---
 
 ## Fase 8: Módulo de Relatórios Gerenciais
 
--   [ ] **Módulo de Relatórios (`reports`):**
+-   [x] **Módulo de Relatórios (`reports`):**
     -   [x] BD: Criar script da tabela `reports`.
     -   [x] BD: Criar script da tabela `report_filters`.
-    -   [x] Backend: Implementar CRUD para relatórios.
-    -   [ ] Frontend: Criar e testar a tela de relatórios. *(Código gerado, mas não testado)*
+    -   [x] Backend: Implementar CRUD para **definições** de relatórios.
+    -   [x] Frontend: Criar e testar a tela de **definições** de relatórios.
+-   [ ] **Melhoria (Relatórios):** Implementar a **execução** de relatórios com interface intuitiva (filtros dinâmicos e visualização de dados).
 
 ---
 
 ## Fase 9: Módulo de Dashboard
 
--   [ ] **Módulo de Dashboard (`dashboard_kpis`):**
+-   [x] **Módulo de Dashboard (`dashboard_kpis`):**
     -   [x] BD: Criar script da tabela `dashboard_kpis`.
-    -   [x] Backend: Implementar CRUD para KPIs do dashboard.
-    -   [ ] Frontend: Criar e testar a tela do dashboard. *(Código gerado, mas não testado)*
+    -   [x] Backend: Implementar CRUD (mockado) para KPIs do dashboard.
+    -   [x] Frontend: Criar e testar a tela do dashboard.
+-   [ ] **Melhoria (Dashboard):** Implementar a lógica real de **cálculo** dos KPIs no backend.
 
 ---
 

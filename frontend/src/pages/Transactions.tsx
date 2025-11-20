@@ -35,6 +35,14 @@ const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "amount",
     header: "Valor",
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("amount"));
+      const formatted = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      }).format(amount);
+      return <div className="text-right font-medium">{formatted}</div>;
+    },
   },
   {
     accessorKey: "type",
@@ -43,6 +51,14 @@ const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "date",
     header: "Data",
+    cell: ({ row }) => {
+      const date = new Date(row.getValue("date"));
+      // Adiciona a formatação para o padrão brasileiro, ajustando o fuso horário
+      const formatted = date.toLocaleDateString('pt-BR', {
+        timeZone: 'UTC', 
+      });
+      return <div>{formatted}</div>;
+    },
   },
   {
     id: "actions",

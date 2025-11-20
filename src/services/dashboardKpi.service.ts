@@ -10,43 +10,43 @@ Website: https://aksurim.com */
 
 import DashboardKpiRepository, { DashboardKpiData, DashboardKpiFromDB } from '../repositories/dashboardKpi.repository';
 
+// Interface para os dados que o frontend espera
+interface Kpi {
+  name: string;
+  value: string;
+}
+
 class DashboardKpiService {
-  async create(tenant_id: number, dashboardKpiData: DashboardKpiData): Promise<DashboardKpiFromDB> {
-    if (!dashboardKpiData.name) {
-      throw new Error('O nome do KPI é obrigatório.');
-    }
-    const newDashboardKpiId = await DashboardKpiRepository.create(tenant_id, dashboardKpiData);
-    const newDashboardKpi = await DashboardKpiRepository.findById(tenant_id, newDashboardKpiId);
-    if (!newDashboardKpi) {
-      throw new Error('Falha ao criar e recuperar o KPI.');
-    }
-    return newDashboardKpi;
+  // Retorna dados mockados para permitir o teste da interface do Dashboard.
+  // A lógica real de cálculo dos KPIs será implementada futuramente.
+  async getAll(tenant_id: number): Promise<Kpi[]> {
+    // Simula a busca e cálculo de KPIs
+    const mockKpis: Kpi[] = [
+      { name: 'Lucro Líquido (Mês)', value: 'R$ 0,00' },
+      { name: 'Vendas (Hoje)', value: 'R$ 0,00' },
+      { name: 'Contas a Pagar (Hoje)', value: 'R$ 0,00' },
+      { name: 'Contas a Receber (Hoje)', value: 'R$ 0,00' },
+    ];
+    return Promise.resolve(mockKpis);
   }
 
-  async getAll(tenant_id: number): Promise<DashboardKpiFromDB[]> {
-    return DashboardKpiRepository.findAllByTenant(tenant_id);
+  // As funções abaixo são placeholders e precisarão ser refatoradas ou removidas
+  // quando a lógica de cálculo real for implementada.
+
+  async create(tenant_id: number, dashboardKpiData: any): Promise<any> {
+    throw new Error('Funcionalidade não aplicável. KPIs são calculados, não criados.');
   }
 
-  async getById(tenant_id: number, id: number): Promise<DashboardKpiFromDB | null> {
-    return DashboardKpiRepository.findById(tenant_id, id);
+  async getById(tenant_id: number, id: number): Promise<any | null> {
+    throw new Error('Funcionalidade não aplicável.');
   }
 
-  async update(tenant_id: number, id: number, dashboardKpiData: Partial<DashboardKpiData>): Promise<DashboardKpiFromDB | null> {
-    const success = await DashboardKpiRepository.update(tenant_id, id, dashboardKpiData);
-    if (!success) {
-      const existingDashboardKpi = await DashboardKpiRepository.findById(tenant_id, id);
-      if (!existingDashboardKpi) {
-        throw new Error('KPI não encontrado ou não pertence à sua empresa.');
-      }
-    }
-    return DashboardKpiRepository.findById(tenant_id, id);
+  async update(tenant_id: number, id: number, dashboardKpiData: any): Promise<any | null> {
+    throw new Error('Funcionalidade não aplicável.');
   }
 
   async delete(tenant_id: number, id: number): Promise<void> {
-    const success = await DashboardKpiRepository.delete(tenant_id, id);
-    if (!success) {
-      throw new Error('KPI não encontrado ou não pertence à sua empresa.');
-    }
+    throw new Error('Funcionalidade não aplicável.');
   }
 }
 

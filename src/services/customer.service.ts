@@ -32,7 +32,16 @@ class CustomerService {
   }
 
   async update(tenant_id: number, id: number, customerData: Partial<CustomerData>): Promise<CustomerFromDB | null> {
-    const success = await CustomerRepository.update(tenant_id, id, customerData);
+    const allowedUpdateData: Partial<CustomerData> = {
+      name: customerData.name,
+      document: customerData.document,
+      email: customerData.email,
+      phone: customerData.phone,
+      birth_date: customerData.birth_date,
+      address: customerData.address,
+    };
+
+    const success = await CustomerRepository.update(tenant_id, id, allowedUpdateData);
     if (!success) {
       // Pode ser que o cliente não exista ou não pertença ao tenant
       const existingCustomer = await CustomerRepository.findById(tenant_id, id);

@@ -32,7 +32,15 @@ class SupplierService {
   }
 
   async update(tenant_id: number, id: number, supplierData: Partial<SupplierData>): Promise<SupplierFromDB | null> {
-    const success = await SupplierRepository.update(tenant_id, id, supplierData);
+    const allowedUpdateData: Partial<SupplierData> = {
+      name: supplierData.name,
+      document: supplierData.document,
+      email: supplierData.email,
+      phone: supplierData.phone,
+      address: supplierData.address,
+    };
+
+    const success = await SupplierRepository.update(tenant_id, id, allowedUpdateData);
     if (!success) {
       const existingSupplier = await SupplierRepository.findById(tenant_id, id);
       if (!existingSupplier) {

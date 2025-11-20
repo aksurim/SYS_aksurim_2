@@ -50,7 +50,12 @@ export function ReportFormPage() {
           const response = await axios.get(`/api/reports/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
-          setFormData(response.data);
+          // Garante que `filters` seja sempre um array para evitar que o método `.map()` quebre.
+          const reportData = response.data;
+          if (!reportData.filters) {
+            reportData.filters = [];
+          }
+          setFormData(reportData);
         } catch (err) {
           console.error('Erro ao carregar dados do relatório:', err);
           setError('Não foi possível carregar os dados do relatório.');

@@ -221,3 +221,66 @@ CREATE TABLE IF NOT EXISTS `transactions` (
     FOREIGN KEY (`account_id`) REFERENCES `accounts`(`id`) ON DELETE CASCADE,
     FOREIGN KEY (`category_id`) REFERENCES `categories`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+-- ------------------------------------------------------------------------------------
+-- FASE 7: MÓDULO DE CONFIGURAÇÕES E CADASTROS MESTRES
+-- ------------------------------------------------------------------------------------
+
+-- Tabela `settings`: Armazena as configurações gerais de cada tenant (nome da empresa, logo, etc.).
+-- Cada tenant possui apenas uma linha nesta tabela.
+CREATE TABLE IF NOT EXISTS `settings` (
+    `tenant_id` INT NOT NULL PRIMARY KEY,
+    `company_name` VARCHAR(255) NULL,
+    `logo_url` VARCHAR(255) NULL,
+    `instagram` VARCHAR(100) NULL,
+    `contact` VARCHAR(100) NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`tenant_id`) REFERENCES `tenants`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ------------------------------------------------------------------------------------
+-- FASE 8: MÓDULO DE RELATÓRIOS GERENCIAIS
+-- ------------------------------------------------------------------------------------
+
+-- Tabela `reports`: Armazena a definição de relatórios personalizados para cada tenant.
+CREATE TABLE IF NOT EXISTS `reports` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `tenant_id` INT NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
+    `type` VARCHAR(100) NOT NULL, -- Ex: 'sales_by_period', 'stock_summary'
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`tenant_id`) REFERENCES `tenants`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Tabela `report_filters`: Armazena os filtros associados a um relatório personalizado.
+CREATE TABLE IF NOT EXISTS `report_filters` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `tenant_id` INT NOT NULL,
+    `report_id` INT NOT NULL,
+    `filter_name` VARCHAR(100) NOT NULL, -- Ex: 'start_date', 'end_date', 'product_id'
+    `filter_value` VARCHAR(255) NOT NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`tenant_id`) REFERENCES `tenants`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`report_id`) REFERENCES `reports`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ------------------------------------------------------------------------------------
+-- FASE 9: MÓDULO DE DASHBOARD
+-- ------------------------------------------------------------------------------------
+
+-- Tabela `dashboard_kpis`: Armazena as preferências de visibilidade de cada KPI para cada usuário.
+CREATE TABLE IF NOT EXISTS `dashboard_kpis` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `tenant_id` INT NOT NULL,
+    `user_id` INT NOT NULL,
+    `kpi_key` VARCHAR(100) NOT NULL, -- Ex: 'net_profit', 'daily_revenue'
+    `is_visible` BOOLEAN NOT NULL DEFAULT true,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY `unique_kpi_per_user` (`user_id`, `kpi_key`),
+    FOREIGN KEY (`tenant_id`) REFERENCES `tenants`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB;

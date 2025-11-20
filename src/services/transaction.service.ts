@@ -32,7 +32,18 @@ class TransactionService {
   }
 
   async update(tenant_id: number, id: number, transactionData: Partial<TransactionData>): Promise<TransactionFromDB | null> {
-    const success = await TransactionRepository.update(tenant_id, id, transactionData);
+    // Regra de Negócio: Apenas campos permitidos podem ser atualizados.
+    // Isso evita que campos de controle como `id`, `tenant_id`, `created_at` sejam alterados.
+    const allowedUpdateData: Partial<TransactionData> = {
+      description: transactionData.description,
+      amount: transactionData.amount,
+      type: transactionData.type,
+      date: transactionData.date,
+      account_id: transactionData.account_id,
+      category_id: transactionData.category_id,
+    };
+
+    const success = await TransactionRepository.update(tenant_id, id, allowedUpdateData);
     if (!success) {
       const existingTransaction = await TransactionRepository.findById(tenant_id, id);
       if (!existingTransaction) {

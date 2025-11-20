@@ -32,7 +32,12 @@ class CategoryService {
   }
 
   async update(tenant_id: number, id: number, categoryData: Partial<CategoryData>): Promise<CategoryFromDB | null> {
-    const success = await CategoryRepository.update(tenant_id, id, categoryData);
+    const allowedUpdateData: Partial<CategoryData> = {
+      name: categoryData.name,
+      type: categoryData.type,
+    };
+
+    const success = await CategoryRepository.update(tenant_id, id, allowedUpdateData);
     if (!success) {
       const existingCategory = await CategoryRepository.findById(tenant_id, id);
       if (!existingCategory) {

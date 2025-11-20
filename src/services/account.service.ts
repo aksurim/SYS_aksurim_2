@@ -32,7 +32,12 @@ class AccountService {
   }
 
   async update(tenant_id: number, id: number, accountData: Partial<AccountData>): Promise<AccountFromDB | null> {
-    const success = await AccountRepository.update(tenant_id, id, accountData);
+    const allowedUpdateData: Partial<AccountData> = {
+      name: accountData.name,
+      balance: accountData.balance,
+    };
+
+    const success = await AccountRepository.update(tenant_id, id, allowedUpdateData);
     if (!success) {
       const existingAccount = await AccountRepository.findById(tenant_id, id);
       if (!existingAccount) {

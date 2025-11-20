@@ -32,7 +32,16 @@ class ProductService {
   }
 
   async update(tenant_id: number, id: number, productData: Partial<ProductData>): Promise<ProductFromDB | null> {
-    const success = await ProductRepository.update(tenant_id, id, productData);
+    const allowedUpdateData: Partial<ProductData> = {
+      name: productData.name,
+      description: productData.description,
+      price: productData.price,
+      cost: productData.cost,
+      product_type: productData.product_type,
+      is_reverse_logistics: productData.is_reverse_logistics,
+    };
+
+    const success = await ProductRepository.update(tenant_id, id, allowedUpdateData);
     if (!success) {
       const existingProduct = await ProductRepository.findById(tenant_id, id);
       if (!existingProduct) {
