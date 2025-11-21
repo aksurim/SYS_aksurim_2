@@ -1,12 +1,17 @@
-/**
+############################################################################
+# 🚧 WIP (Work in Progress): Este projeto está em desenvolvimento ativo.  #
+# Funcionalidades podem estar instáveis.                                  #
+###########################################################################
 
+/* 
 Sys Aksurim (SA)
 
 Copyright (c) 2024 Aksurim Software. Todos os direitos reservados.
 
 Produtora: Aksurim Software
 
-Website: https://aksurim.com */
+Website: https://aksurim.com 
+*/
 
 # Sys Aksurim (SA) - Sistema de Gestão para MEIs e Pequenas Empresas
 
